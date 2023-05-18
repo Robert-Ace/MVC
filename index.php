@@ -14,4 +14,5 @@ spl_autoload_register(static function ($class) {
 session_start();
 
 $router = new Router();
+$router->run();
 

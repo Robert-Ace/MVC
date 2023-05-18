@@ -2,23 +2,55 @@
 
 namespace application\core;
 
-class Router {
+class Router
+{
 
     protected array $routes = [];
     protected array $params = [];
-    public function __construct() {
-        //
+    public function __construct()
+    {
+        $config = require 'application/config/routes.php';
+        foreach ($config as $key => $val) {
+            $this->add($key, $val);
+        }
     }
 
-    public function add() {
-        //
+    public function add($route, $params)
+    {
+        $route = '#^' .$route. '$#';
+        $this->routes[$route] = $params;
     }
 
-    public function match() {
-
+    public function match()
+    {
+        $url = trim($_SERVER['REQUEST_URI'], '/');
+        foreach ($this->routes as $route => $params) {
+            if (preg_match($route, $url, $matches)) {
+                $this->params = $params;
+                return true;
+            }
+        }
+        return false;
     }
 
-    public function run() {
+    public function run()
+    {
+        if ($this->match()) {
+            $path = 'application\controllers\\' . ucfirst($this->params['controller']) . 'Controller';
+            if (class_exists($path)) {
 
+                $action = $this->params['action'] . 'Action';
+                if (method_exists($path, $action)) {
+                    $controller = new $path($this->params);
+                    $controller->$action();
+                } else {
+                    echo "Не найден Экшен: $action.";
+                }
+            } else {
+                echo "Не найден Контролер: $path.";
+            }
+        } else {
+            echo "Не найден Маршрут.";
+        }
     }
 }
