@@ -5,27 +5,27 @@ namespace application\core;
 class Router
 {
 
-    protected array $routes = [];
-    protected array $params = [];
+    private array $routes = [];
+    private array $params = [];
     public function __construct()
     {
         $config = require 'application/config/routes.php';
         foreach ($config as $key => $val) {
-            $this->add($key, $val);
+            $this->setRoutes($key, $val);
         }
     }
 
-    public function add($route, $params)
+    private function setRoutes(string $route, array $params) :void
     {
-        $route = '#^' .$route. '$#';
+        $route = $this->convertRouteToRegex($route);
         $this->routes[$route] = $params;
     }
 
-    public function match()
+    private function match() :bool
     {
         $url = trim($_SERVER['REQUEST_URI'], '/');
-        foreach ($this->routes as $route => $params) {
-            if (preg_match($route, $url, $matches)) {
+        foreach ($this->routes as $routeRegex => $params) {
+            if (preg_match($routeRegex, $url, $matches)) {
                 $this->params = $params;
                 return true;
             }
@@ -52,5 +52,10 @@ class Router
         } else {
             echo "Не найден Маршрут.";
         }
+    }
+
+    private function convertRouteToRegex(string $route) :string
+    {
+        return '#^' . $route . '$#';
     }
 }
