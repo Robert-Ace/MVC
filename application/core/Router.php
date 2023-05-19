@@ -21,33 +21,39 @@ class Router
         $this->routes[$route] = $params;
     }
 
-    private function match() :bool
+    private function setParams(array $params) :void
+    {
+        $this->params = $params;
+    }
+
+    private function hasMatchUrl() :bool
     {
         $url = trim($_SERVER['REQUEST_URI'], '/');
         foreach ($this->routes as $routeRegex => $params) {
             if (preg_match($routeRegex, $url, $matches)) {
-                $this->params = $params;
+                $this->setParams($params);
                 return true;
             }
         }
         return false;
     }
 
-    public function run()
+    public function run() :void
     {
-        if ($this->match()) {
-            $path = 'application\controllers\\' . ucfirst($this->params['controller']) . 'Controller';
-            if (class_exists($path)) {
+        if ($this->hasMatchUrl()) {
+            $className = 'application\controllers\\' . ucfirst($this->params['controller']) . 'Controller';
+            if (class_exists($className)) {
 
                 $action = $this->params['action'] . 'Action';
-                if (method_exists($path, $action)) {
-                    $controller = new $path($this->params);
+                if (method_exists($className, $action)) {
+                    $controller = new $className($this->params);
                     $controller->$action();
                 } else {
                     echo "Не найден Экшен: $action.";
                 }
+
             } else {
-                echo "Не найден Контролер: $path.";
+                echo "Не найден Контролер: $className.";
             }
         } else {
             echo "Не найден Маршрут.";
