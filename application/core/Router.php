@@ -6,7 +6,7 @@ class Router
 {
 
     private array $routes = [];
-    private array $params = [];
+    private array $routeParams = [];
     public function __construct()
     {
         $config = require 'application/config/routes.php';
@@ -21,9 +21,9 @@ class Router
         $this->routes[$route] = $params;
     }
 
-    private function setParams(array $params) :void
+    private function setRouteParams(array $params) :void
     {
-        $this->params = $params;
+        $this->routeParams = $params;
     }
 
     private function hasMatchUrl() :bool
@@ -31,7 +31,7 @@ class Router
         $url = trim($_SERVER['REQUEST_URI'], '/');
         foreach ($this->routes as $routeRegex => $params) {
             if (preg_match($routeRegex, $url, $matches)) {
-                $this->setParams($params);
+                $this->setRouteParams($params);
                 return true;
             }
         }
@@ -41,12 +41,12 @@ class Router
     public function run() :void
     {
         if ($this->hasMatchUrl()) {
-            $className = 'application\controllers\\' . ucfirst($this->params['controller']) . 'Controller';
+            $className = 'application\controllers\\' . ucfirst($this->routeParams['controller']) . 'Controller';
             if (class_exists($className)) {
 
-                $action = $this->params['action'] . 'Action';
+                $action = $this->routeParams['action'] . 'Action';
                 if (method_exists($className, $action)) {
-                    $controller = new $className($this->params);
+                    $controller = new $className($this->routeParams);
                     $controller->$action();
                 } else {
                     echo "Не найден Экшен: $action.";

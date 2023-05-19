@@ -9,7 +9,7 @@ class MainController extends AbstractController
 
     public function indexAction()
     {
-        echo 'Главная Страница';
+        $this->view->render('Главная страница');
     }
 
 }

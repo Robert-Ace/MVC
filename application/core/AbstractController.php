@@ -2,11 +2,15 @@
 
 namespace application\core;
 
+use application\core\View;
+
 abstract class AbstractController
 {
-    public $route;
-    public function __construct($route)
+    public array $routeParams;
+    public View $view;
+    public function __construct($routeParams)
     {
-        $this->route = $route;
+        $this->routeParams = $routeParams;
+        $this->view = new View($routeParams);
     }
 }

@@ -8,10 +8,10 @@ class AccountController extends AbstractController
 
     public function loginAction()
     {
-        echo 'Страница входа';
+        $this->view->render('Страница Авторизации');
     }
     public function registerAction()
     {
-        echo 'Страница регистрации';
+        $this->view->render('Страница Регистрации');
     }
 }
