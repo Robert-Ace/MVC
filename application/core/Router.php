@@ -49,14 +49,14 @@ class Router
                     $controller = new $className($this->routeParams);
                     $controller->$action();
                 } else {
-                    echo "Не найден Экшен: $action.";
+                    View::showError(404);
                 }
 
             } else {
-                echo "Не найден Контролер: $className.";
+                View::showError(404);
             }
         } else {
-            echo "Не найден Маршрут.";
+            View::showError(404);
         }
     }
 

@@ -6,10 +6,10 @@ use application\core\AbstractController;
 
 class MainController extends AbstractController
 {
-
-    public function indexAction()
+    public function indexAction() :void
     {
-        $this->view->render('Главная страница');
+        $vars = ['name' => 'Роберт', 'age' => 37];
+        $this->view->render('Главная страница', $vars);
     }
 
 }

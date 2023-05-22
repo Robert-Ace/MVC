@@ -6,11 +6,11 @@ use application\core\AbstractController;
 class AccountController extends AbstractController
 {
 
-    public function loginAction()
+    public function loginAction() :void
     {
         $this->view->render('Страница Авторизации');
     }
-    public function registerAction()
+    public function registerAction() :void
     {
         $this->view->render('Страница Регистрации');
     }
