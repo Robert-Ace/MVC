@@ -1,33 +1,25 @@
-<h1>Главная страница</h1>
+<?php
 
-<p>Меня зовут <?php echo $name; ?></p>
-<p>Возраст <?php echo $age; ?></p>
+/**
+ * @var array $vars
+ * @var string $title
+ */
 
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-    Ab accusantium ad architecto assumenda dolorem exercitationem,
-    illo illum itaque labore neque nobis nostrum porro, quis quo ratione repellendus sit,
-    velit voluptatem?
-    orem ipsum dolor sit amet, consectetur adipisicing elit.
-    Ab accusantium ad architecto assumenda dolorem exercitationem,
-    illo illum itaque labore neque nobis nostrum porro, quis quo ratione repellendus sit,
-    velit voluptatem?
-</p>
 
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-    Ab accusantium ad architecto assumenda dolorem exercitationem,
-    illo illum itaque labore neque nobis nostrum porro, quis quo ratione repellendus sit,
-    velit voluptatem?
-    orem ipsum dolor sit amet, consectetur adipisicing elit.
-    Ab accusantium ad architecto assumenda dolorem exercitationem,
-    illo illum itaque labore neque nobis nostrum porro, quis quo ratione repellendus sit,
-    velit voluptatem?
-</p>
+?>
 
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-    Ab accusantium ad architecto assumenda dolorem exercitationem,
-    illo illum itaque labore neque nobis nostrum porro, quis quo ratione repellendus sit,
-    velit voluptatem?orem ipsum dolor sit amet, consectetur adipisicing elit.
-    Ab accusantium ad architecto assumenda dolorem exercitationem,
-    illo illum itaque labore neque nobis nostrum porro, quis quo ratione repellendus sit,
-    velit voluptatem?
-</p>
+<h1><?php echo $title; ?></h1>
+<h3>На нашем сайте мы публикуем самые важые новости.</h3>
+<div>
+    <?php foreach ($vars as $item): ?>
+        <h2><?php echo $item['title']; ?></h2>
+        <p><?php echo $item['description']; ?></p>
+        <p><?php echo $item['text']; ?></p>
+
+        <a href="/news/<?php echo $item['id']; ?>/">
+            подробнее
+        </a>
+    <?php endforeach; ?>
+</div>
+
+
