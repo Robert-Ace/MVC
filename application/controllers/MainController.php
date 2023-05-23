@@ -8,7 +8,8 @@ class MainController extends AbstractController
 {
     public function indexAction() :void
     {
-        $vars = $this->model->getNews();
+        $news = $this->model->getNews();
+        $vars = ['news' => $news];
         $this->view->render('Главная страница', $vars);
     }
 

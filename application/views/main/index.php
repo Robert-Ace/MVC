@@ -11,7 +11,7 @@
 <h1><?php echo $title; ?></h1>
 <h3>На нашем сайте мы публикуем самые важые новости.</h3>
 <div>
-    <?php foreach ($vars as $item): ?>
+    <?php foreach ($vars['news'] as $item): ?>
         <h2><?php echo $item['title']; ?></h2>
         <p><?php echo $item['description']; ?></p>
         <p><?php echo $item['text']; ?></p>
