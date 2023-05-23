@@ -31,7 +31,7 @@ class Db
         return $this->query($sql, $params)->fetchAll();
     }
 
-    public function getCollumn(string $sql, $params = []) : bool|array
+    public function getColumn(string $sql, $params = []) : mixed
     {
         return $this->query($sql, $params)->fetchColumn();
     }

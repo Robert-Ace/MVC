@@ -41,7 +41,7 @@ class Router
     public function run() :void
     {
         if ($this->hasMatchUrl()) {
-            $className = 'application\controllers\\' . ucfirst($this->routeParams['controller']) . 'Controller';
+            $className = 'application\\controllers\\' . ucfirst($this->routeParams['controller']) . 'Controller';
             if (class_exists($className)) {
 
                 $action = $this->routeParams['action'] . 'Action';
